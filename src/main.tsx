@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import TimeMatrixPage from "./pages/TimeMatrixPage.tsx";
 import RootLayout from "./pages/RootLayout.tsx";
@@ -13,7 +10,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    children: [{ path: "/", element: <TimeMatrixPage /> }],
+    children: [{ index: true, element: <TimeMatrixPage /> }],
   },
 ]);
 
