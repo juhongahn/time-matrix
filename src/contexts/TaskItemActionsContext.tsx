@@ -53,7 +53,6 @@ export const TaskItemActionsProvider = ({ children }: Props) => {
 
   function onToggleTask(task: Task) {
     const curDate = new Date();
-    console.log(task)
     const updatedTask = {
       ...task,
       quadrantId: "done-board",

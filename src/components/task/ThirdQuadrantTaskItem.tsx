@@ -20,7 +20,6 @@ const ThirdQuadrantTaskItem = ({
   warningState,
   warningHandler,
 }: Props) => {
-  console.log(task)
   useEffect(() => {
     checkTrdQuadItemIsWarning(task, warningState);
   }, [task]);

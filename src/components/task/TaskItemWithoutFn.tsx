@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import { Task, WarningState } from "@/types";
+import { useState } from "react";
+import { Todo } from "@/components/task/TaskItem";
 
 interface Props {
   task: Task;
@@ -15,8 +17,7 @@ const Container = styled.div<{ $warning?: boolean }>`
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 
-  padding: 1rem;
-  padding-bottom: 0.8rem;
+  padding: 0.8rem;
   background-color: rgb(255, 255, 255);
   border-style: solid;
   color: rgb(31, 35, 40);
@@ -33,7 +34,6 @@ const TaskHeader = styled.div`
   align-items: center;
 `;
 
-
 const TaskBody = styled.div`
   display: flex;
   align-items: center;
@@ -42,23 +42,18 @@ const TaskBody = styled.div`
     margin-right: 0.5rem;
   }
 `;
-const Todo = styled.p<{ $checked?: boolean }>`
-  font-size: 0.8rem;
-  flex-grow: 1;
-  text-decoration: ${(props) => props.$checked && "line-through"};
-`;
-
-
-
 
 const TaskItemWithoutFn = ({ task }: Props) => {
+  const [learnMore, setLearnMore] = useState<boolean>(false);
   return (
     <Container>
       <TaskHeader>
         <span>{task.quadrantId}</span>
       </TaskHeader>
       <TaskBody>
-        <Todo>{task.task}</Todo>
+        <Todo $learnMore={learnMore} onClick={() => setLearnMore(!learnMore)}>
+          {task.task}
+        </Todo>
       </TaskBody>
     </Container>
   );

@@ -69,7 +69,7 @@ const TaskBody = styled.div`
   }
 `;
 
-const Todo = styled.p<{ $checked?: boolean; $learnMore: boolean }>`
+export const Todo = styled.p<{ $checked?: boolean; $learnMore: boolean }>`
   flex-grow: 1;
 
   font-size: 0.75rem;

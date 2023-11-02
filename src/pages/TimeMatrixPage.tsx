@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TaskItemActionsProvider } from "@/contexts/TaskItemActionsContext";
 import { TaskDndProvider } from "@/contexts/TaskDndContext";
@@ -9,6 +10,9 @@ import Board from "@/components/board/Board";
 const queryClient = new QueryClient();
 
 const TimeMatrixPage = () => {
+  useEffect(() => {
+    document.title = "Time Matrix";
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <TasksProvider>

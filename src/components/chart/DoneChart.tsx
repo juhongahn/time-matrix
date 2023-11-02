@@ -23,7 +23,6 @@ interface Props {
 
 const DoneChart = ({ activeTasksHandler }: Props) => {
   const { data: groupedTasks = [] } = useDoneTasksQuery();
-  console.log(groupedTasks);
   return (
     <Container>
       <ChartWrapper>
@@ -43,7 +42,6 @@ const DoneChart = ({ activeTasksHandler }: Props) => {
               />
             }
           />
-          {/* <YAxis type="number" domain={['auto', 8]} hide /> */}
           <Tooltip content={<DoneTaskTooltip />} />
           <Line dataKey="count" stroke="#ff5544" strokeWidth={2.5} />
         </LineChart>
@@ -94,16 +92,22 @@ const AxisTickRect = styled.rect`
   }
 `;
 
-interface AxisTickProps {
-  activeTasksHandler: (tasks: Task[]) => void;
-  data: GroupedTasksByDoneDate[];
-  props?: any
-}
+// interface AxisTickProps {
+//   activeTasksHandler: (tasks: Task[]) => void;
+//   data: GroupedTasksByDoneDate[];
+//   props?: any
+// }
 
-const DoneTaskAxisTick = ({ x, y, payload, index}: any, { activeTasksHandler, data }: AxisTickProps ) => {
+const DoneTaskAxisTick = ({
+  x,
+  y,
+  payload,
+  index,
+  activeTasksHandler,
+  data,
+}: any) => {
   const [isMouseOver, setMouseOver] = useState<boolean>(false);
   const radius = 10;
-
   const currentDate = new Date();
   const targetDate = new Date(payload.value);
   const day = targetDate.getDate();
@@ -133,7 +137,7 @@ const DoneTaskAxisTick = ({ x, y, payload, index}: any, { activeTasksHandler, da
         y={-y}
         onMouseEnter={handleMouseEnter}
         onMouseOut={handleMouseOut}
-        onClick={() => clickHandler()}
+        onClick={() => clickHandler(data as GroupedTasksByDoneDate[])}
       />
     </g>
   );
@@ -146,7 +150,7 @@ const DoneTaskAxisTick = ({ x, y, payload, index}: any, { activeTasksHandler, da
     setMouseOver(false);
   }
 
-  function clickHandler() {
+  function clickHandler(data: GroupedTasksByDoneDate[]) {
     const activeData = data.find(
       (doneTask) => doneTask.doneAt === payload.value
     );
