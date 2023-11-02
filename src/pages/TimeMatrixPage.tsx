@@ -1,24 +1,27 @@
-import styled from "styled-components";
-import QuadrantElement from "../components/QuadrantElement";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TaskItemActionsProvider } from "@/contexts/TaskItemActionsContext";
+import { TaskDndProvider } from "@/contexts/TaskDndContext";
+import { TaskInputProvider } from "@/contexts/TaskInputContext";
+import { TasksProvider } from "@/contexts/TasksContext";
 
-const Quadrant = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  height: 100vh;
-  width: 100vw;
-`;
+import Board from "@/components/board/Board";
 
-function TimeMatrixPage() {
+const queryClient = new QueryClient();
+
+const TimeMatrixPage = () => {
   return (
-    <Quadrant>
-      <QuadrantElement title="1 사분면" row={1} column={1} />
-      <QuadrantElement title="2 사분면" row={1} column={2} />
-      <QuadrantElement title="3 사분면" row={2} column={1} />
-      <QuadrantElement title="4 사분면" row={2} column={2} />
-    </Quadrant>
+    <QueryClientProvider client={queryClient}>
+      <TasksProvider>
+        <TaskItemActionsProvider>
+          <TaskInputProvider>
+            <TaskDndProvider>
+              <Board />
+            </TaskDndProvider>
+          </TaskInputProvider>
+        </TaskItemActionsProvider>
+      </TasksProvider>
+    </QueryClientProvider>
   );
-}
+};
 
 export default TimeMatrixPage;
