@@ -5,9 +5,11 @@ export type Task = {
   quadrantId: string;
   task: string;
   done: boolean;
-  createdAt: Date;
-  deadLine: Date | null;
-  assignedPerson: string | null;
+  doneAt?: string;
+  createdAt: string;
+  deadLine?: string;
+  assignedPerson?: string;
+  status: string;
 };
 
 export type WarningState = {
