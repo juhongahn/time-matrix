@@ -33,7 +33,7 @@ const AccomplishBoard = () => {
         <ChartHeader />
         <DoneChart activeTasksHandler={activeTasksHandler} />
       </ChartContainer>
-      <DoneBoard tasks={activeTasks} disableDnd={true} />
+      <DoneBoard tasks={activeTasks} disableDnd={true} width={380} />
     </Container>
   );
 };
