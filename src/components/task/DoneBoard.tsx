@@ -11,10 +11,12 @@ import TaskItemWithoutFn from "./TaskItemWithoutFn";
 interface Props {
   tasks: Task[];
   disableDnd: boolean;
+  width?: number;
 }
 
-const Container = styled.div`
+const Container = styled.div<{$width?:number}>`
   min-width: 350px;
+  width: ${(props) => `${props.$width}px`};
   overflow: hidden;
 
   position: relative;
@@ -42,7 +44,7 @@ const Body = styled.div`
   height: 0px;
 `;
 
-const DoneBoard = ({ tasks, disableDnd }: Props) => {
+const DoneBoard = ({ tasks, disableDnd, width }: Props) => {
   const taskIdList = useMemo(() => tasks.map((task) => task.id), [tasks]);
   const { setNodeRef } = useDroppable({
     id: "done-board",
@@ -54,7 +56,7 @@ const DoneBoard = ({ tasks, disableDnd }: Props) => {
   });
 
   return (
-    <Container>
+    <Container $width={width}>
       <Header
         className="task-board-header"
         title="Done"
