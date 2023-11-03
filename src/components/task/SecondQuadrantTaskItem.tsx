@@ -35,7 +35,6 @@ const SecondQuadrantTaskItem = ({
   useEffect(() => {
     checkSndQuadItemIsWarning(task, warningState);
   }, [task, task.deadLine]);
-
   return (
     <TaskItem
       task={task}
@@ -49,17 +48,20 @@ const SecondQuadrantTaskItem = ({
     }
     if (checkIsDeadlineOver(task.deadLine!) && !warningState.warning) {
       warningHandler({ message: "마감 기간이 지났습니다", warning: true });
-    } 
-    if (!checkContentsIsNullOrEmpty(task.deadLine) && warningState.warning && !checkIsDeadlineOver(task.deadLine!)) {
+    }
+    if (
+      !checkContentsIsNullOrEmpty(task.deadLine) &&
+      warningState.warning &&
+      !checkIsDeadlineOver(task.deadLine!)
+    ) {
       warningHandler({ message: "", warning: false });
     }
   }
 };
 
 function checkIsDeadlineOver(stringDeadline: string) {
-  const deadline = new Date(stringDeadline);
-  const today = new Date();
-
+  const deadline = new Date(stringDeadline).getTime();
+  const today = Date.now();
   return deadline < today;
 }
 
@@ -68,7 +70,7 @@ interface DatePickerProps {
 }
 
 const SndQuadTaskItemDatePicker = ({ task }: DatePickerProps) => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
   const { setDeadLine } = useTaskItemActions();
@@ -104,6 +106,8 @@ const SndQuadTaskItemDatePicker = ({ task }: DatePickerProps) => {
           <DatePicker
             selected={startDate}
             onChange={handleChange}
+            showTimeSelect
+            timeFormat="HH:mm"
             inline
             locale={ko}
           />

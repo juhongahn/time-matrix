@@ -156,7 +156,7 @@ const TaskItem = ({ task, warningState, icon }: Props) => {
         {warningState?.warning ? (
           <WarningMessage>{warningState.message}</WarningMessage>
         ) : task.quadrantId === "second-quadrant" && task.deadLine ? (
-          <Message>{formatDateToYYYYMMDD(task.deadLine)}</Message>
+          <Message>{formatDateToYYYYMMDDHHMM(task.deadLine)}</Message>
         ) : (
           task.quadrantId === "third-quadrant" &&
           task.assignedPerson && <Message>{task.assignedPerson}</Message>
@@ -197,13 +197,15 @@ const TaskItem = ({ task, warningState, icon }: Props) => {
   );
 };
 
-function formatDateToYYYYMMDD(strDate: string) {
+function formatDateToYYYYMMDDHHMM(strDate: string) {
   const date = new Date(strDate);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
+  const hour = String(date.getHours()).padStart(2, "0");
+  const minute = String(date.getMinutes()).padStart(2, "0");
 
-  return `${year}.${month}.${day}`;
+  return `${year}.${month}.${day} ${hour}:${minute}`;
 }
 
 function switchQuadIdToItemTitel(quadId: string) {
