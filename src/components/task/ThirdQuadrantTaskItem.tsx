@@ -44,6 +44,7 @@ const ThirdQuadrantTaskItem = ({
 
 const PopUpInputContainer = styled.form`
   position: fixed;
+  z-index: 100;
 
   background-color: white;
   border-radius: 6px;
@@ -94,7 +95,7 @@ const TrdQuadTaskItemIcon = ({ task }: ItemProps) => {
   });
 
   return (
-    <div>
+    <div style={{position: "relative"}}>
       <Button onClick={onClickHandler}>
         <FontAwesomeIcon
           icon={faUserPlus}
