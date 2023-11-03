@@ -1,4 +1,6 @@
-import useDoneTasksQuery, { GroupedTasksByDoneDate } from "@/hooks/useDoneTasksQuery";
+import useDoneTasksQuery, {
+  GroupedTasksByDoneDate,
+} from "@/hooks/useDoneTasksQuery";
 import { useState } from "react";
 import { Line, LineChart, Tooltip, XAxis } from "recharts";
 import styled from "styled-components";
@@ -91,12 +93,6 @@ const AxisTickRect = styled.rect`
     cursor: pointer;
   }
 `;
-
-// interface AxisTickProps {
-//   activeTasksHandler: (tasks: Task[]) => void;
-//   data: GroupedTasksByDoneDate[];
-//   props?: any
-// }
 
 const DoneTaskAxisTick = ({
   x,
