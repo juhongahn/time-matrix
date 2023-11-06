@@ -104,8 +104,9 @@ const DoneTaskAxisTick = ({
 }: any) => {
   const [isMouseOver, setMouseOver] = useState<boolean>(false);
   const radius = 10;
-  const currentDate = new Date();
-  const targetDate = new Date(payload.value);
+
+  const currentDate = getKRDate();
+  const targetDate = getKRDate(payload.value);
   const day = targetDate.getDate();
   const month = targetDate.getMonth() + 1;
   return (
@@ -160,6 +161,18 @@ function isSameDay(date1: Date, date2: Date) {
     date1.getMonth() === date2.getMonth() &&
     date1.getDate() === date2.getDate()
   );
+}
+
+function getKRDate(isoDate?: string) {
+  if (!isoDate)
+    return new Date(
+      new Date().toLocaleDateString("en-US", { timeZone: "Asia/Seoul" })
+    );
+  const date = new Date(isoDate);
+  const koreanTimeDate = new Date(
+    date.toLocaleString("en-US", { timeZone: "Asia/Seoul" })
+  );
+  return koreanTimeDate;
 }
 
 export default DoneChart;

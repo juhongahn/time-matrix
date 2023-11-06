@@ -10,6 +10,7 @@ import Checkbox from "@/components/ui/Checkbox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan";
+import TaskHeader from "@/components/task/TaskHeader";
 
 interface Props {
   task: Task;
@@ -38,26 +39,6 @@ const Container = styled.div<{ $warning?: boolean }>`
   &:active {
     cursor: grabbing;
   }
-`;
-
-const TaskHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & .task-title {
-    font-size: 0.8rem;
-    color: var(--color-gray-500);
-  }
-`;
-
-const Message = styled.span`
-  font-size: 0.75rem;
-  color: var(--color-gray-500);
-`;
-
-const WarningMessage = styled(Message)`
-  color: red;
 `;
 
 const TaskBody = styled.div`
@@ -149,19 +130,7 @@ const TaskItem = ({ task, warningState, icon }: Props) => {
       {...attributes}
       {...listeners}
     >
-      <TaskHeader>
-        <span className="task-title">
-          {switchQuadIdToItemTitel(task.quadrantId)}
-        </span>
-        {warningState?.warning ? (
-          <WarningMessage>{warningState.message}</WarningMessage>
-        ) : task.quadrantId === "second-quadrant" && task.deadLine ? (
-          <Message>{formatDateToYYYYMMDDHHMM(task.deadLine)}</Message>
-        ) : (
-          task.quadrantId === "third-quadrant" &&
-          task.assignedPerson && <Message>{task.assignedPerson}</Message>
-        )}
-      </TaskHeader>
+      <TaskHeader task={task} warningState={warningState} />
       <TaskBody>
         <Checkbox
           checked={task.done}
@@ -196,35 +165,5 @@ const TaskItem = ({ task, warningState, icon }: Props) => {
     </Container>
   );
 };
-
-function formatDateToYYYYMMDDHHMM(strDate: string) {
-  const date = new Date(strDate);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hour = String(date.getHours()).padStart(2, "0");
-  const minute = String(date.getMinutes()).padStart(2, "0");
-
-  return `${year}.${month}.${day} ${hour}:${minute}`;
-}
-
-function switchQuadIdToItemTitel(quadId: string) {
-  switch (quadId) {
-    case "first-quadrant":
-      return "1st quadrant";
-    case "second-quadrant":
-      return "2nd quadrant";
-    case "third-quadrant":
-      return "3th quadrant";
-    case "fourth-quadrant":
-      return "4th quadrant";
-    case "task-board":
-      return "A task to do";
-    case "done-board":
-      return "Done task";
-    default:
-      return "";
-  }
-}
 
 export default TaskItem;
