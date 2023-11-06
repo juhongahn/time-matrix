@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Task, WarningState } from "@/types";
 import { useState } from "react";
 import { Todo } from "@/components/task/TaskItem";
+import TaskHeader from "./TaskHeader";
 
 interface Props {
   task: Task;
@@ -28,12 +29,6 @@ const Container = styled.div<{ $warning?: boolean }>`
   box-shadow: rgba(140, 149, 159, 0.15) 0px 3px 6px;
 `;
 
-const TaskHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const TaskBody = styled.div`
   display: flex;
   align-items: center;
@@ -47,9 +42,7 @@ const TaskItemWithoutFn = ({ task }: Props) => {
   const [learnMore, setLearnMore] = useState<boolean>(false);
   return (
     <Container>
-      <TaskHeader>
-        <span>{task.quadrantId}</span>
-      </TaskHeader>
+      <TaskHeader task={task} />
       <TaskBody>
         <Todo $learnMore={learnMore} onClick={() => setLearnMore(!learnMore)}>
           {task.task}
